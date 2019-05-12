@@ -231,7 +231,7 @@ local globalKeys =
     {},
     'XF86AudioRaiseVolume',
     function()
-      awful.spawn('amixer -D pulse sset Master 5%+')
+      awful.spawn('volup')
     end,
     {description = 'volume up', group = 'hotkeys'}
   ),
@@ -239,7 +239,7 @@ local globalKeys =
     {},
     'XF86AudioLowerVolume',
     function()
-      awful.spawn('amixer -D pulse sset Master 5%-')
+      awful.spawn('voldown')
     end,
     {description = 'volume down', group = 'hotkeys'}
   ),
