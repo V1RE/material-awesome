@@ -56,16 +56,16 @@ local function list_update(w, buttons, label, data, objects)
       ibm = wibox.container.margin(ib, dpi(12), dpi(12), dpi(12), dpi(12))
       l = wibox.layout.fixed.horizontal()
       bg_clickable = clickable_container()
-
+      
       -- All of this is added in a fixed widget
       l:fill_space(true)
       l:add(ibm)
       -- l:add(tbm)
       bg_clickable:set_widget(l)
-
+      
       -- And all of this gets a background
       bgb:set_widget(bg_clickable)
-
+      
       bgb:buttons(create_buttons(buttons, o))
 
       data[o] = {
@@ -139,21 +139,22 @@ local TagList = function(s)
             _G.client.focus:toggle_tag(t)
           end
         end
-      ),
-      awful.button(
-        {},
-        4,
-        function(t)
-          awful.tag.viewprev(t.screen)
-        end
-      ),
-      awful.button(
-        {},
-        5,
-        function(t)
-          awful.tag.viewnext(t.screen)
-        end
       )
+      -- ,
+      -- awful.button(
+      --   {},
+      --   4,
+      --   function(t)
+      --     awful.tag.viewprev(t.screen)
+      --   end
+      -- ),
+      -- awful.button(
+      --   {},
+      --   5,
+      --   function(t)
+      --     awful.tag.viewnext(t.screen)
+      --   end
+      -- )
     ),
     {},
     list_update,

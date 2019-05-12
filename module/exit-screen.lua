@@ -99,7 +99,7 @@ lock:connect_signal(
 )
 
 -- Get screen geometry
-local screen_geometry = awful.screen.focused().geometry
+local screen_geometry = screen.primary.geometry
 
 -- Create the widget
 exit_screen =
@@ -118,11 +118,40 @@ exit_screen =
 exit_screen.bg = beautiful.background.hue_800 .. 'dd'
 exit_screen.fg = beautiful.exit_screen_fg or beautiful.wibar_fg or '#FEFEFE'
 
+blackout = {}
+
+awful.screen.connect_for_each_screen(
+  function(s)
+    if s ~= screen.primary then
+      blackout[s.index] = wibox(
+        {
+          x = s.geometry.x,
+          y = s.geometry.y,
+          visible = false,
+          ontop = true,
+          type = 'splash',
+          height = s.geometry.height,
+          width = s.geometry.width
+        }
+      )
+      blackout[s.index].bg = beautiful.background.hue_800 .. 'dd'
+      blackout[s.index].fg = beautiful.exit_screen_fg or beautiful.wibar_fg or '#FEFEFE'
+    end
+  end
+)
+
 local exit_screen_grabber
 
 function exit_screen_hide()
   awful.keygrabber.stop(exit_screen_grabber)
   exit_screen.visible = false
+  awful.screen.connect_for_each_screen(
+    function(s)
+      if s ~= screen.primary then
+        blackout[s.index].visible = false
+      end
+    end
+  )
 end
 
 function exit_screen_show()
@@ -152,6 +181,13 @@ function exit_screen_show()
     end
   )
   exit_screen.visible = true
+  awful.screen.connect_for_each_screen(
+    function(s)
+      if s ~= screen.primary then
+        blackout[s.index].visible = true
+      end
+    end
+  )
 end
 
 exit_screen:buttons(

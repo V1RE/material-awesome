@@ -15,6 +15,21 @@ local globalKeys =
   awful.key({modkey}, 'w', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
   awful.key({modkey}, 's', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
   awful.key({modkey}, 'Escape', awful.tag.history.restore, {description = 'go back', group = 'tag'}),
+
+  awful.key(
+    {modkey},
+    't',
+    function()
+      awful.spawn(
+        awful.screen.focused().selected_tag.defaultApp,
+        {
+          tag = _G.mouse.screen.selected_tag,
+          placement = awful.placement.bottom_right
+        }
+      )
+    end,
+    {description = 'focus next by index', group = 'client'}
+  ),
   -- Default client focus
   awful.key(
     {modkey},
@@ -36,7 +51,11 @@ local globalKeys =
     {modkey},
     'e',
     function()
-      _G.screen.primary.left_panel:toggle(true)
+      if _G.screen.primary == _G.mouse.screen then
+        _G.screen.primary.left_panel:toggle(true)
+      else
+        _G.awesome.spawn(apps.default.rofi)
+      end
     end,
     {description = 'show main menu', group = 'awesome'}
   ),
@@ -76,7 +95,12 @@ local globalKeys =
     end,
     {description = 'open a terminal', group = 'launcher'}
   ),
-  awful.key({modkey, 'Control'}, 'r', _G.awesome.restart, {description = 'reload awesome', group = 'awesome'}),
+  awful.key(
+    {modkey, 'Control'},
+    'r',
+    _G.awesome.restart,
+    {description = 'reload awesome', group = 'awesome'}
+  ),
   awful.key({modkey, 'Control'}, 'q', _G.awesome.quit, {description = 'quit awesome', group = 'awesome'}),
   awful.key(
     {altkey, 'Shift'},
@@ -155,36 +179,36 @@ local globalKeys =
     end,
     {description = 'restore minimized', group = 'client'}
   ),
-  -- Dropdown application
-  awful.key(
-    {modkey},
-    '`',
-    function()
-      _G.toggle_quake()
-    end,
-    {description = 'dropdown application', group = 'launcher'}
-  ),
-  -- Widgets popups
-  awful.key(
-    {altkey},
-    'h',
-    function()
-      if beautiful.fs then
-        beautiful.fs.show(7)
-      end
-    end,
-    {description = 'show filesystem', group = 'widgets'}
-  ),
-  awful.key(
-    {altkey},
-    'w',
-    function()
-      if beautiful.weather then
-        beautiful.weather.show(7)
-      end
-    end,
-    {description = 'show weather', group = 'widgets'}
-  ),
+  -- -- Dropdown application
+  -- awful.key(
+  --   {modkey},
+  --   '`',
+  --   function()
+  --     _G.toggle_quake()
+  --   end,
+  --   {description = 'dropdown application', group = 'launcher'}
+  -- ),
+  -- -- Widgets popups
+  -- awful.key(
+  --   {altkey},
+  --   'h',
+  --   function()
+  --     if beautiful.fs then
+  --       beautiful.fs.show(7)
+  --     end
+  --   end,
+  --   {description = 'show filesystem', group = 'widgets'}
+  -- ),
+  -- awful.key(
+  --   {altkey},
+  --   'w',
+  --   function()
+  --     if beautiful.weather then
+  --       beautiful.weather.show(7)
+  --     end
+  --   end,
+  --   {description = 'show weather', group = 'widgets'}
+  -- ),
   -- Brightness
   awful.key(
     {},
@@ -224,32 +248,49 @@ local globalKeys =
     'XF86AudioMute',
     function()
       awful.spawn('amixer -D pulse set Master 1+ toggle')
-    end,
-    {description = 'toggle mute', group = 'hotkeys'}
+    end
+    -- {description = 'toggle mute', group = 'hotkeys'}
   ),
+  -- Spotify controls
   awful.key(
     {},
     'XF86AudioNext',
     function()
-      --
+      awful.spawn('sp next')
     end,
-    {description = 'toggle mute', group = 'hotkeys'}
+    {description = 'Spotify next song', group = 'hotkeys'}
+  ),
+  awful.key(
+    {},
+    'XF86AudioPrev',
+    function()
+      awful.spawn('sp prev')
+    end,
+    {description = 'Spotify previous song', group = 'hotkeys'}
+  ),
+  awful.key(
+    {},
+    'XF86AudioPlay',
+    function()
+      awful.spawn('sp play')
+    end,
+    {description = 'Spotify play/pause song', group = 'hotkeys'}
   ),
   awful.key(
     {},
     'XF86PowerDown',
     function()
       --
-    end,
-    {description = 'toggle mute', group = 'hotkeys'}
+    end
+    -- {description = 'toggle mute', group = 'hotkeys'}
   ),
   awful.key(
     {},
     'XF86PowerOff',
     function()
       _G.exit_screen_show()
-    end,
-    {description = 'toggle mute', group = 'hotkeys'}
+    end
+    -- {description = 'toggle mute', group = 'hotkeys'}
   )
 )
 
@@ -273,7 +314,8 @@ for i = 1, 9 do
       {modkey},
       '#' .. i + 9,
       function()
-        local screen = awful.screen.focused()
+        -- local screen = awful.screen.focused()
+        local screen = screen.primary
         local tag = screen.tags[i]
         if tag then
           tag:view_only()
@@ -281,47 +323,49 @@ for i = 1, 9 do
       end,
       descr_view
     ),
-    -- Toggle tag display.
-    awful.key(
-      {modkey, 'Control'},
-      '#' .. i + 9,
-      function()
-        local screen = awful.screen.focused()
-        local tag = screen.tags[i]
-        if tag then
-          awful.tag.viewtoggle(tag)
-        end
-      end,
-      descr_toggle
-    ),
+    -- -- Toggle tag display.
+    -- awful.key(
+    --   {modkey, 'Control'},
+    --   '#' .. i + 9,
+    --   function()
+    --     -- local screen = awful.screen.focused()
+    --     local screen = screen.primary
+    --     local tag = screen.tags[i]
+    --     if tag then
+    --       awful.tag.viewtoggle(tag)
+    --     end
+    --   end,
+    --   descr_toggle
+    -- ),
     -- Move client to tag.
     awful.key(
       {modkey, 'Shift'},
       '#' .. i + 9,
       function()
         if _G.client.focus then
-          local tag = _G.client.focus.screen.tags[i]
+          -- local tag = _G.client.focus.screen.tags[i]
+          local tag = screen.primary.tags[i]
           if tag then
             _G.client.focus:move_to_tag(tag)
           end
         end
       end,
       descr_move
-    ),
-    -- Toggle tag on focused client.
-    awful.key(
-      {modkey, 'Control', 'Shift'},
-      '#' .. i + 9,
-      function()
-        if _G.client.focus then
-          local tag = _G.client.focus.screen.tags[i]
-          if tag then
-            _G.client.focus:toggle_tag(tag)
-          end
-        end
-      end,
-      descr_toggle_focus
     )
+    -- -- Toggle tag on focused client.
+    -- awful.key(
+    --   {modkey, 'Control', 'Shift'},
+    --   '#' .. i + 9,
+    --   function()
+    --     if _G.client.focus then
+    --       local tag = _G.client.focus.screen.tags[i]
+    --       if tag then
+    --         _G.client.focus:toggle_tag(tag)
+    --       end
+    --     end
+    --   end,
+    --   descr_toggle_focus
+    -- )
   )
 end
 

@@ -17,14 +17,14 @@ return awful.util.table.join(
     {modkey},
     4,
     function()
-      awful.layout.inc(1)
+      awful.tag.viewprev(screen.primary)
     end
   ),
   awful.button(
     {modkey},
     5,
     function()
-      awful.layout.inc(-1)
+      awful.tag.viewnext(screen.primary)
     end
   )
 )

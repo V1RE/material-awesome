@@ -9,10 +9,18 @@ local clientKeys =
     {modkey},
     'f',
     function(c)
-      c.fullscreen = not c.fullscreen
+      local offset = 0
+      if c.screen == screen.primary then
+        offsetx = 48
+      end
+      c.floating = not c.floating
+      c.width = (mouse.screen.geometry["width"] - offset) * 0.8
+      c.height = (mouse.screen.geometry["height"] - offset) * 0.8
+      c.x = (mouse.screen.geometry["x"] + offset) + ((mouse.screen.geometry["width"] - offset) / 2) - (c.width / 2) + 24
+      c.y = (mouse.screen.geometry["y"] + offset) + ((mouse.screen.geometry["height"] - offset) / 2) - (c.height / 2) + 24
       c:raise()
     end,
-    {description = 'toggle fullscreen', group = 'client'}
+    {description = 'toggle floating', group = 'client'}
   ),
   awful.key(
     {modkey},

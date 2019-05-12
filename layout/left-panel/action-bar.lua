@@ -17,6 +17,17 @@ return function(screen, panel, action_bar_width)
   -- textclock.forced_height = 56
 
   local clock_widget = wibox.container.margin(textclock, dpi(13), dpi(13), dpi(8), dpi(8))
+  awful.tooltip(
+  {
+    objects = {textclock},
+    mode = 'outside',
+    align = 'right',
+    timer_function = function()
+      return os.date('Today is %A %B %d %Y\nThe time is %T')
+    end,
+    preferred_positions = {'right', 'left', 'top', 'bottom'}
+  }
+)
   local systray = wibox.widget.systray()
   systray:set_horizontal(false)
   systray:set_base_size(24)
@@ -64,6 +75,23 @@ return function(screen, panel, action_bar_width)
       menu_icon.icon = icons.menu
     end
   )
+
+  panel:buttons(awful.util.table.join(
+    awful.button(
+      {},
+      4,
+      function(t)
+        awful.tag.viewprev(t.screen)
+      end
+    ),
+    awful.button(
+      {},
+      5,
+      function(t)
+        awful.tag.viewnext(t.screen)
+      end
+    )
+  ))
 
   return wibox.widget {
     id = 'action_bar',

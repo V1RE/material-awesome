@@ -95,6 +95,26 @@ local function list_update(w, buttons, label, data, objects)
 
       l:buttons(create_buttons(buttons, o))
 
+      local text, bg, bg_image, icon, args = label(o, tb)
+
+      awful.tooltip(
+        {
+          objects = {bg_clickable},
+          mode = 'outside',
+          align = 'bottom',
+          -- timer_function = function()
+          --   if updateAvailable then
+          --     return numOfUpdatesAvailable .. ' updates are available'
+          --   else
+          --     return 'We are up-to-date!'
+          --   end
+          -- end,
+          text = text:match('>(.-)<'),
+          preferred_positions = {'bottom', 'right', 'left', 'top'},
+          preferred_alignments = {'middle', 'front', 'back'}
+        }
+      )
+
       data[o] = {
         ib = ib,
         tb = tb,
@@ -167,21 +187,22 @@ local tasklist_buttons =
     function(c)
       c.kill(c)
     end
-  ),
-  awful.button(
-    {},
-    4,
-    function()
-      awful.client.focus.byidx(1)
-    end
-  ),
-  awful.button(
-    {},
-    5,
-    function()
-      awful.client.focus.byidx(-1)
-    end
   )
+  -- ,
+  -- awful.button(
+  --   {},
+  --   4,
+  --   function()
+  --     awful.client.focus.byidx(1)
+  --   end
+  -- ),
+  -- awful.button(
+  --   {},
+  --   5,
+  --   function()
+  --     awful.client.focus.byidx(-1)
+  --   end
+  -- )
 )
 
 local TaskList = function(s)

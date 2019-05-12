@@ -103,7 +103,7 @@ local TopPanel = function(s, offset)
     layout = wibox.layout.align.horizontal,
     {
       layout = wibox.layout.fixed.horizontal,
-      -- Create a taglist widget
+      -- Create a tasklist widget
       TaskList(s),
       add_button
     },
@@ -114,6 +114,23 @@ local TopPanel = function(s, offset)
       LayoutBox(s)
     }
   }
+
+  panel:buttons(awful.util.table.join(
+    awful.button(
+      {},
+      4,
+      function()
+        awful.client.focus.byidx(1)
+      end
+    ),
+    awful.button(
+      {},
+      5,
+      function()
+        awful.client.focus.byidx(-1)
+      end
+    )
+  ))
 
   return panel
 end

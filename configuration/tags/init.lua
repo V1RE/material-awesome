@@ -6,7 +6,7 @@ local tags = {
   {
     icon = icons.chrome,
     type = 'chrome',
-    defaultApp = 'google-chrome-beta',
+    defaultApp = 'google-chrome-stable',
     screen = 1
   },
   {
@@ -24,13 +24,13 @@ local tags = {
   {
     icon = icons.folder,
     type = 'files',
-    defaultApp = 'nautilus',
+    defaultApp = 'pcmanfm',
     screen = 1
   },
   {
     icon = icons.music,
     type = 'music',
-    defaultApp = 'youtube-music',
+    defaultApp = 'spotify',
     screen = 1
   },
   {
@@ -54,20 +54,36 @@ awful.layout.layouts = {
 
 awful.screen.connect_for_each_screen(
   function(s)
-    for i, tag in pairs(tags) do
+    if s == screen.primary then
+      for i, tag in pairs(tags) do
+        awful.tag.add(
+          i,
+          {
+            icon = tag.icon,
+            icon_only = true,
+            layout = awful.layout.suit.tile,
+            gap_single_client = false,
+            gap = 4,
+            screen = s,
+            defaultApp = tag.defaultApp,
+            selected = i == 1
+          }
+        )
+      end
+    else
       awful.tag.add(
-        i,
-        {
-          icon = tag.icon,
-          icon_only = true,
-          layout = awful.layout.suit.tile,
-          gap_single_client = false,
-          gap = 4,
-          screen = s,
-          defaultApp = tag.defaultApp,
-          selected = i == 1
-        }
-      )
+          0,
+          {
+            icon = icons.lab,
+            icon_only = true,
+            layout = awful.layout.suit.tile,
+            gap_single_client = false,
+            gap = 4,
+            screen = s,
+            defaultApp = '',
+            selected = true
+          }
+        )
     end
   end
 )
