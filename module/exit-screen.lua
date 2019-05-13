@@ -98,6 +98,14 @@ lock:connect_signal(
   end
 )
 
+local close = buildButton(icons.close, 'Close')
+close:connect_signal(
+  'button::release',
+  function (  )
+    exit_screen_hide()
+  end
+)
+
 -- Get screen geometry
 local screen_geometry = screen.primary.geometry
 
@@ -223,6 +231,7 @@ exit_screen:setup {
       suspend,
       exit,
       lock,
+      close,
       layout = wibox.layout.fixed.horizontal
       -- },
       -- widget = exit_screen_box
