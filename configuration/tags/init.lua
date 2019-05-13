@@ -1,48 +1,50 @@
 local awful = require('awful')
 local gears = require('gears')
 local icons = require('theme.icons')
+local apps = require('configuration.apps')
+local config = require("config")
 
 local tags = {
   {
     icon = icons.chrome,
     type = 'chrome',
-    defaultApp = 'google-chrome-stable',
+    defaultApp = config.apps.browser,
     screen = 1
   },
   {
     icon = icons.code,
     type = 'code',
-    defaultApp = 'code',
+    defaultApp = config.apps.editor,
     screen = 1
   },
   {
     icon = icons.social,
     type = 'social',
-    defaultApp = 'station',
+    defaultApp = config.apps.social,
     screen = 1
   },
   {
     icon = icons.folder,
     type = 'files',
-    defaultApp = 'pcmanfm',
+    defaultApp = config.apps.filemanager,
     screen = 1
   },
   {
     icon = icons.music,
     type = 'music',
-    defaultApp = 'spotify',
+    defaultApp = config.apps.music,
     screen = 1
   },
   {
     icon = icons.game,
     type = 'game',
-    defaultApp = '',
+    defaultApp = config.apps.games,
     screen = 1
   },
   {
     icon = icons.lab,
     type = 'any',
-    defaultApp = '',
+    defaultApp = apps.default.rofi,
     screen = 1
   }
 }
@@ -80,7 +82,7 @@ awful.screen.connect_for_each_screen(
             gap_single_client = false,
             gap = 4,
             screen = s,
-            defaultApp = '',
+            defaultApp = apps.default.rofi,
             selected = true
           }
         )
