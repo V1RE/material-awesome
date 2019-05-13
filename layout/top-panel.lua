@@ -19,13 +19,18 @@ add_button:buttons(
       1,
       nil,
       function()
-        awful.spawn(
-          awful.screen.focused().selected_tag.defaultApp,
-          {
-            tag = _G.mouse.screen.selected_tag,
-            placement = awful.placement.bottom_right
-          }
-        )
+        tag = awful.screen.focused().selected_tag
+        if tag.icon == icons.lab and tag.screen == screen.primary then
+          _G.screen.primary.left_panel:toggle(true)
+        else
+          awful.spawn(
+            tag.defaultApp,
+            {
+              tag = tag,
+              placement = awful.placement.bottom_right
+            }
+          )
+        end
       end
     )
   )
