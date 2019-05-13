@@ -20,22 +20,33 @@ slider:connect_signal(
   end
 )
 
+local icon =
+  wibox.widget {
+  image = icons.brightness.medium,
+  widget = wibox.widget.imagebox
+}
+
+local seticon = function(brightness)
+  if brightness < 33 then
+    icon.image = icons.brightness.low
+  elseif brightness < 66 then
+    icon.image = icons.brightness.medium
+  else
+    icon.image = icons.brightness.high
+  end
+  return
+end
+
 watch(
   [[bash -c "xbacklight -get"]],
   1,
   function(widget, stdout, stderr, exitreason, exitcode)
     local brightness = string.match(stdout, '(%d+)')
-
     slider:set_value(tonumber(brightness))
+    seticon(tonumber(brightness))
     collectgarbage('collect')
   end
 )
-
-local icon =
-  wibox.widget {
-  image = icons.brightness,
-  widget = wibox.widget.imagebox
-}
 
 local button = mat_icon_button(icon)
 

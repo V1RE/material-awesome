@@ -18,11 +18,22 @@ return {
   lock = dir .. '/lock.svg',
   restart = dir .. '/restart.svg',
   search = dir .. '/magnify.svg',
-  volume = dir .. '/volume-high.svg',
-  brightness = dir .. '/brightness-7.svg',
   chart = dir .. '/chart-areaspline.svg',
   memory = dir .. '/memory.svg',
   harddisk = dir .. '/harddisk.svg',
   thermometer = dir .. '/thermometer.svg',
-  plus = dir .. '/plus.svg'
+  plus = dir .. '/plus.svg',
+  --extra
+  menu_open = dir .. '/menu-open.svg',
+  volume = {
+    low = dir .. '/volume/volume-low.svg',
+    medium = dir .. '/volume/volume-medium.svg',
+    high = dir .. '/volume/volume-high.svg',
+    off = dir .. '/volume/volume-off.svg'
+  },
+  brightness = {
+    low = dir .. '/brightness/brightness-5.svg',
+    medium = dir .. '/brightness/brightness-6.svg',
+    high = dir .. '/brightness/brightness-7.svg'
+  }
 }

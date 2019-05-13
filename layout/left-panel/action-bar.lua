@@ -65,7 +65,7 @@ return function(screen, panel, action_bar_width)
   panel:connect_signal(
     'opened',
     function()
-      menu_icon.icon = icons.close
+      menu_icon.icon = icons.menu_open
     end
   )
 

@@ -5,6 +5,8 @@ local mat_icon_button = require('widget.material.icon-button')
 local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local spawn = require('awful.spawn')
+local config = require('config')
+local awful = require('awful')
 
 local slider =
   wibox.widget {
@@ -19,24 +21,51 @@ slider:connect_signal(
   end
 )
 
+local icon =
+  wibox.widget {
+  image = icons.volume.medium,
+  widget = wibox.widget.imagebox
+}
+
+local seticon = function(volume, status)
+  if status == "off" then
+    icon.image = icons.volume.off
+  elseif volume < 33 then
+    icon.image = icons.volume.low
+  elseif volume < 66 then
+    icon.image = icons.volume.medium
+  else
+    icon.image = icons.volume.high
+  end
+  return
+end
+
 watch(
   [[bash -c "amixer -D pulse sget Master"]],
   1,
   function(_, stdout)
-    local mute = string.match(stdout, '%[(o%D%D?)%]')
+    local status = string.match(stdout, '%[(o%D%D?)%]')
     local volume = string.match(stdout, '(%d?%d?%d)%%')
     slider:set_value(tonumber(volume))
+    seticon(tonumber(volume), status)
     collectgarbage('collect')
   end
 )
 
-local icon =
-  wibox.widget {
-  image = icons.volume,
-  widget = wibox.widget.imagebox
-}
-
 local button = mat_icon_button(icon)
+
+button:buttons(
+  awful.util.table.join(
+    awful.button(
+      {},
+      1,
+      function()
+        awful.spawn(config.apps.volume)
+        _G.screen.primary.left_panel:toggle(false)
+      end
+    )
+  )
+)
 
 local volume_setting =
   wibox.widget {
