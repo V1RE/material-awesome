@@ -22,17 +22,17 @@ slider:connect_signal(
 
 local icon =
   wibox.widget {
-  image = icons.brightness.medium,
+  image = icons.mdi_brightness_6,
   widget = wibox.widget.imagebox
 }
 
 local seticon = function(brightness)
   if brightness < 33 then
-    icon.image = icons.brightness.low
+    icon.image = icons.mdi_brightness_5
   elseif brightness < 66 then
-    icon.image = icons.brightness.medium
+    icon.image = icons.mdi_brightness_6
   else
-    icon.image = icons.brightness.high
+    icon.image = icons.mdi_brightness_7
   end
   return
 end

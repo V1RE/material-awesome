@@ -26,7 +26,7 @@ watch(
 local temperature_meter =
   wibox.widget {
   wibox.widget {
-    icon = icons.thermometer,
+    icon = icons.mdi_thermometer,
     size = dpi(24),
     widget = mat_icon
   },

@@ -3,6 +3,7 @@ local mat_colors = require('theme.mat-colors')
 local theme_dir = filesystem.get_configuration_dir() .. '/theme'
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
+local icons = require('theme.icons')
 local theme = {}
 theme.icons = theme_dir .. '/icons/'
 theme.font = 'Roboto medium 10'
@@ -62,8 +63,8 @@ local awesome_overrides =
 
   -- Layout
 
-  theme.layout_max = theme.icons .. 'layouts/arrow-expand-all.png'
-  theme.layout_tile = theme.icons .. 'layouts/view-quilt.png'
+  theme.layout_max = icons.mdi_arrow_expand_all
+  theme.layout_tile = icons.mdi_view_quilt
 
   -- Taglist
 

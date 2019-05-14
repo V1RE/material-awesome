@@ -6,43 +6,43 @@ local config = require("config")
 
 local tags = {
   {
-    icon = icons.chrome,
+    icon = icons.mdi_google_chrome,
     type = 'chrome',
     defaultApp = config.apps.browser,
     screen = 1
   },
   {
-    icon = icons.code,
+    icon = icons.mdi_visual_studio_code,
     type = 'code',
     defaultApp = config.apps.editor,
     screen = 1
   },
   {
-    icon = icons.social,
+    icon = icons.mdi_forum,
     type = 'social',
     defaultApp = config.apps.social,
     screen = 1
   },
   {
-    icon = icons.folder,
+    icon = icons.mdi_folder,
     type = 'files',
     defaultApp = config.apps.filemanager,
     screen = 1
   },
   {
-    icon = icons.music,
+    icon = icons.mdi_library_music,
     type = 'music',
     defaultApp = config.apps.music,
     screen = 1
   },
   {
-    icon = icons.game,
+    icon = icons.mdi_controller_classic,
     type = 'game',
     defaultApp = config.apps.games,
     screen = 1
   },
   {
-    icon = icons.lab,
+    icon = icons.mdi_flask,
     type = 'any',
     defaultApp = apps.default.rofi,
     screen = 1
@@ -76,7 +76,7 @@ awful.screen.connect_for_each_screen(
       awful.tag.add(
           0,
           {
-            icon = icons.lab,
+            icon = icons.mdi_flask,
             icon_only = true,
             layout = awful.layout.suit.tile,
             gap_single_client = false,

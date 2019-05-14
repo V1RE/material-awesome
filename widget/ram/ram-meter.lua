@@ -26,7 +26,7 @@ watch(
 local ram_meter =
   wibox.widget {
   wibox.widget {
-    icon = icons.memory,
+    icon = icons.mdi_memory,
     size = dpi(24),
     widget = mat_icon
   },

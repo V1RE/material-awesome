@@ -10,7 +10,7 @@ return function(_, panel)
   local search_button =
     wibox.widget {
     wibox.widget {
-      icon = icons.search,
+      icon = icons.mdi_magnify,
       size = dpi(24),
       widget = mat_icon
     },
@@ -38,7 +38,7 @@ return function(_, panel)
   local exit_button =
     wibox.widget {
     wibox.widget {
-      icon = icons.logout,
+      icon = icons.mdi_logout,
       size = dpi(24),
       widget = mat_icon
     },

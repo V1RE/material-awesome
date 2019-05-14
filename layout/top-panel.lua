@@ -11,7 +11,7 @@ local dpi = require('beautiful').xresources.apply_dpi
 
 local icons = require('theme.icons')
 
-local add_button = mat_icon_button(mat_icon(icons.plus, dpi(24)))
+local add_button = mat_icon_button(mat_icon(icons.mdi_plus, dpi(24)))
 add_button:buttons(
   gears.table.join(
     awful.button(
@@ -20,7 +20,7 @@ add_button:buttons(
       nil,
       function()
         tag = awful.screen.focused().selected_tag
-        if tag.icon == icons.lab and tag.screen == screen.primary then
+        if tag.icon == icons.mdi_flask and tag.screen == screen.primary then
           _G.screen.primary.left_panel:toggle(true)
         else
           awful.spawn(

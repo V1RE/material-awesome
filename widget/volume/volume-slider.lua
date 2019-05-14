@@ -23,19 +23,19 @@ slider:connect_signal(
 
 local icon =
   wibox.widget {
-  image = icons.volume.medium,
+  image = icons.mdi_volume_medium,
   widget = wibox.widget.imagebox
 }
 
 local seticon = function(volume, status)
   if status == "off" then
-    icon.image = icons.volume.off
+    icon.image = icons.mdi_volume_off
   elseif volume < 33 then
-    icon.image = icons.volume.low
+    icon.image = icons.mdi_volume_low
   elseif volume < 66 then
-    icon.image = icons.volume.medium
+    icon.image = icons.mdi_volume_medium
   else
-    icon.image = icons.volume.high
+    icon.image = icons.mdi_volume_high
   end
   return
 end

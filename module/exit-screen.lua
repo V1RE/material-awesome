@@ -58,7 +58,7 @@ function reboot_command()
   awful.keygrabber.stop(_G.exit_screen_grabber)
 end
 
-local poweroff = buildButton(icons.power, 'Shutdown')
+local poweroff = buildButton(icons.mdi_power, 'Shutdown')
 poweroff:connect_signal(
   'button::release',
   function()
@@ -66,7 +66,7 @@ poweroff:connect_signal(
   end
 )
 
-local reboot = buildButton(icons.restart, 'Restart')
+local reboot = buildButton(icons.mdi_restart, 'Restart')
 reboot:connect_signal(
   'button::release',
   function()
@@ -74,7 +74,7 @@ reboot:connect_signal(
   end
 )
 
-local suspend = buildButton(icons.sleep, 'Sleep')
+local suspend = buildButton(icons.mdi_power_sleep, 'Sleep')
 suspend:connect_signal(
   'button::release',
   function()
@@ -82,7 +82,7 @@ suspend:connect_signal(
   end
 )
 
-local exit = buildButton(icons.logout, 'Logout')
+local exit = buildButton(icons.mdi_logout, 'Logout')
 exit:connect_signal(
   'button::release',
   function()
@@ -90,7 +90,7 @@ exit:connect_signal(
   end
 )
 
-local lock = buildButton(icons.lock, 'Lock')
+local lock = buildButton(icons.mdi_lock, 'Lock')
 lock:connect_signal(
   'button::release',
   function()
@@ -98,7 +98,7 @@ lock:connect_signal(
   end
 )
 
-local close = buildButton(icons.close, 'Close')
+local close = buildButton(icons.mdi_close, 'Close')
 close:connect_signal(
   'button::release',
   function (  )

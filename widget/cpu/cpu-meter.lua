@@ -39,7 +39,7 @@ watch(
 local cpu_meter =
   wibox.widget {
   wibox.widget {
-    icon = icons.chart,
+    icon = icons.mdi_chart_areaspline,
     size = dpi(24),
     widget = mat_icon
   },

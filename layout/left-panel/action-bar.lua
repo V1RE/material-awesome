@@ -34,7 +34,7 @@ return function(screen, panel, action_bar_width)
 
   local menu_icon =
     wibox.widget {
-    icon = icons.menu,
+    icon = icons.mdi_menu,
     size = dpi(24),
     widget = mat_icon
   }
@@ -65,14 +65,14 @@ return function(screen, panel, action_bar_width)
   panel:connect_signal(
     'opened',
     function()
-      menu_icon.icon = icons.menu_open
+      menu_icon.icon = icons.mdi_menu_open
     end
   )
 
   panel:connect_signal(
     'closed',
     function()
-      menu_icon.icon = icons.menu
+      menu_icon.icon = icons.mdi_menu
     end
   )
 
